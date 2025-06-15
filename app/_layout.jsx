@@ -17,7 +17,8 @@ const RootLayout = () => {
       },
     }}
   >
-    <Stack.Screen name="index" options={{ title: "My Notes" }} />
+    <Stack.Screen name="index" options={{ title: "Noted 🗒️" }} />
+    <Stack.Screen name="notes" options={{ headerTitle: "Your Notes" }} />
   </Stack>;
 }
 
