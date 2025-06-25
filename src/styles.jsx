@@ -3,8 +3,9 @@ import { StyleSheet } from "react-native";
 const AppStyles = StyleSheet.create({
     body: {
         flex: 1,
+        justifyContent: "flex-start",
         width: "100vw",
-        height: "100vh",
+        height: "auto",
     },
     headingContainer: {
         display: "flex",
@@ -46,7 +47,7 @@ const AppStyles = StyleSheet.create({
         width: "100vw",
     },
     primaryBtn: {
-        marginTop: 32,
+        marginTop: 16,
         marginBottom: 32,
         paddingHorizontal: 32,
         paddingVertical: 16,
@@ -175,6 +176,9 @@ const AppStyles = StyleSheet.create({
         padding: 16,
         backgroundColor: "#767779",
         borderRadius: 8,
+    },
+    listContainer: {
+        height: "83%",
     },
     noteHeading: {
         width: "100%",

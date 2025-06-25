@@ -25,21 +25,21 @@ const AddNoteModal = ({
                     <TextInput
                         style={AppStyles.textInput}
                         placeholder="A Concise Name 🤔"
-                        onChangeText={titleText => setNoteTitle(titleText)}
-                        defaultValue={noteTitle}
+                        onChangeText={setNoteTitle}
+                        value={noteTitle}
                     />
                     <Text style={AppStyles.inputLabel}>Enter the thing you want to remember:</Text>
                     <TextInput
                         style={AppStyles.textInputArea}
                         placeholder="Note it NOW! 😉"
-                        onChangeText={bodyText => setNoteBody(bodyText)}
-                        defaultValue={noteBody}
+                        onChangeText={setNoteBody}
+                        value={noteBody}
                     />
                     <View style={AppStyles.modalBtnsContainer}>
                         <TouchableOpacity style={AppStyles.primaryBtnModal} onPress={addNote}>
                             <Text style={AppStyles.primaryBtnModalText}>Save it!</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={AppStyles.secondaryBtnModal} onPress={() => setModalVisible(false)}>
+                        <TouchableOpacity style={AppStyles.secondaryBtnModal} onPress={() => resetModal(setNoteTitle, setNoteBody, setModalVisible)}>
                             <Text style={AppStyles.secondaryBtnModalText}>Nevermind</Text>
                         </TouchableOpacity>
                     </View>
@@ -47,6 +47,12 @@ const AddNoteModal = ({
             </View>
         </Modal>
     )
+}
+
+const resetModal = (setNoteTitle, setNoteBody, setModalVisible) => {
+    setNoteTitle("");
+    setNoteBody("");
+    setModalVisible(false);
 }
 
 export default AddNoteModal;
