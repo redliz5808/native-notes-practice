@@ -1,6 +1,8 @@
+import AddNoteModal from "@/components/AddNoteModal";
+import NoteList from "@/components/NoteList";
 import AppStyles from "@/src/styles";
 import { useState } from "react";
-import { FlatList, Modal, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 
 const NoteScreen = () => {
     const [notes, setNotes] = useState([
@@ -26,21 +28,8 @@ const NoteScreen = () => {
     return (
         <View style={AppStyles.body}>
             {/* Display a list of notes */}
-            {/* <NoteList notes={notes} /> */}
-            <FlatList
-                // Provide the data for the list
-                data={notes}
-                // Provide a unique identifier for each item in the list
-                keyExtractor={(item) => item.id}
-                // Render each item in the list
-                renderItem={({ item }) => (
-                    <View style={AppStyles.noteContainer}>
-                        <Text style={AppStyles.noteHeading}>{item.title}</Text>
-                        <Text style={AppStyles.noteBody}>{item.body}</Text>
-                    </View>
-                )}
-            />
-            
+            <NoteList notes={notes} />
+
             {/* ADD A NOTE BUTTON */}
             <View style={AppStyles.buttonContainer}>
                 <TouchableOpacity style={AppStyles.primaryBtn} onPress={() => setModalVisible(true)}>
@@ -49,41 +38,16 @@ const NoteScreen = () => {
             </View>
 
             {/* MODAL FOR ADDING NOTES */}
-            <Modal
-                // Base the visibility of the modal on the state (controlled by the button)
-                visible={modalVisible}
-                animationType="slide"
-                transparent
-                // When the modal closes, set the modal's visibility state back to hidden
-                onRequestClose={() => setModalVisible(false)}
-            >
-                <View style={AppStyles.modalContainer}>
-                    <View style={AppStyles.modalContent}>
-                        <Text style={AppStyles.inputLabel}>Give your note a title:</Text>
-                        <TextInput
-                            style={AppStyles.textInput}
-                            placeholder="A Concise Name 🤔"
-                            onChangeText={titleText => setNoteTitle(titleText)}
-                            defaultValue={noteTitle}
-                        />
-                        <Text style={AppStyles.inputLabel}>Enter the thing you want to remember:</Text>
-                        <TextInput
-                            style={AppStyles.textInputArea}
-                            placeholder="Note it NOW! 😉"
-                            onChangeText={bodyText => setNoteBody(bodyText)}
-                            defaultValue={noteBody}
-                        />
-                        <View style={AppStyles.modalBtnsContainer}>
-                            <TouchableOpacity style={AppStyles.primaryBtnModal} onPress={addNote}>
-                                <Text style={AppStyles.primaryBtnModalText}>Save it!</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={AppStyles.secondaryBtnModal} onPress={() => setModalVisible(false)}>
-                                <Text style={AppStyles.secondaryBtnModalText}>Nevermind</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                </View>
-            </Modal>
+            <AddNoteModal
+                modalVisible={modalVisible}
+                setModalVisible={setModalVisible}
+                noteTitle={noteTitle}
+                setNoteTitle={setNoteTitle}
+                noteBody={noteBody}
+                setNoteBody={setNoteBody}
+                addNote={addNote}
+            />
+
         </View>
     )
 }
