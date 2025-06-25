@@ -6,17 +6,14 @@ import { useEffect, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 
 const NoteScreen = () => {
-    const [notes, setNotes] = useState([
-        // { id: '1', title: 'Note One', body: "This is note 1" },
-        // { id: '2', title: 'Note Two', body: "This is note 2" },
-        // { id: '3', title: 'Note Three', body: "This is note 3" },
-    ])
+    const [notes, setNotes] = useState([])
     const [modalVisible, setModalVisible] = useState(false);
     const [noteTitle, setNoteTitle] = useState("");
     const [noteBody, setNoteBody] = useState("");
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    // Grab existing notes from the DB
     const fetchNotes = async () => {
         setLoading(true);
         const response = await noteService.getNotes();
@@ -35,15 +32,25 @@ const NoteScreen = () => {
         fetchNotes();
     }, [])
 
-    const addNote = () => {
+    // Add a new note
+    const addNote = async () => {
+        // Don't add blank notes
         if (noteTitle.trim() === "" && noteBody === "") return;
-        setNotes((prevNotes) => [
-            ...prevNotes,
-            { id: Date.now.toString(), title: noteTitle, body: noteBody }
-        ])
+
+        // Add new notes to the existing list of notes
+        const response = await noteService.addNote(noteTitle, noteBody)
+
+        // Check for errors before adding to DB
+        if (response.error) {
+            Alert.alert(`Error: ${response.error}`)
+        } else {
+            setNotes([...notes, response.data])
+        }
+        // Reset note modal
         setNoteTitle("");
         setNoteBody("");
         setModalVisible(false);
+
     };
 
     return (
