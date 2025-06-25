@@ -1,4 +1,4 @@
-import databaseService from "./database.Service";
+import databaseService from "./databaseService";
 // import { ID } from "react-native-appwrite";
 
 // AppWrite database and collection ID
