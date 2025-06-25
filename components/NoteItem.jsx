@@ -4,8 +4,8 @@ import { Text, View } from 'react-native';
 const NoteItem = ({ note }) => {
     return (
         <View style={AppStyles.noteContainer}>
-            <Text style={AppStyles.noteHeading}>{note.title}</Text>
-            <Text style={AppStyles.noteBody}>{note.body}</Text>
+            <Text style={AppStyles.noteHeading}>{note.noteTitle}</Text>
+            <Text style={AppStyles.noteBody}>{note.noteBody}</Text>
         </View>
     )
 }
